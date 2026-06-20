@@ -15,7 +15,7 @@ Start-Logged "Frontend" "Green" (Join-Path $root "frontend") "npm run dev -- --h
 $colors = @{ Backend = "Yellow"; Frontend = "Green" }
 
 function Stop-AllServices {
-    Write-Host "`nA parar serviços..." -ForegroundColor Cyan
+    Write-Host "`nA parar servicos..." -ForegroundColor Cyan
     Get-Job | Stop-Job -ErrorAction SilentlyContinue
     Get-Job | Remove-Job -Force -ErrorAction SilentlyContinue
 
