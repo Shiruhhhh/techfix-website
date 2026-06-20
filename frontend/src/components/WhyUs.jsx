@@ -1,3 +1,7 @@
+import { Typography, Row, Col, Card } from "antd";
+
+const { Title, Paragraph } = Typography;
+
 const REASONS = [
   {
     title: "Diagnóstico Gratuito",
@@ -19,18 +23,18 @@ const REASONS = [
 
 export default function WhyUs() {
   return (
-    <section id="porque-nos" className="why-us">
-      <div className="container">
-        <h2>Porquê Escolher-nos</h2>
-        <div className="why-us__grid">
-          {REASONS.map((r) => (
-            <div className="why-us__card" key={r.title}>
-              <h3>{r.title}</h3>
-              <p>{r.text}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+    <div id="porque-nos" style={{ padding: "80px 24px", maxWidth: 1180, margin: "0 auto", textAlign: "center" }}>
+      <Title level={2}>Porquê Escolher-nos</Title>
+      <Row gutter={[24, 24]} style={{ marginTop: 32, textAlign: "left" }}>
+        {REASONS.map((r) => (
+          <Col xs={24} sm={12} md={6} key={r.title}>
+            <Card>
+              <Title level={4}>{r.title}</Title>
+              <Paragraph>{r.text}</Paragraph>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+    </div>
   );
 }

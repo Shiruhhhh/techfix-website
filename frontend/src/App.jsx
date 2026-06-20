@@ -1,4 +1,4 @@
-import "./App.css";
+import { Layout } from "antd";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Services from "./components/Services";
@@ -9,16 +9,16 @@ import Footer from "./components/Footer";
 
 export default function App() {
   return (
-    <>
+    <Layout>
       <Header />
-      <main>
+      <Layout.Content>
         <Hero />
         <Services />
         <Brands />
         <WhyUs />
         <Contact />
-      </main>
+      </Layout.Content>
       <Footer />
-    </>
+    </Layout>
   );
 }

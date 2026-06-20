@@ -1,14 +1,16 @@
+import { Layout, Flex } from "antd";
+
 export default function Footer() {
   return (
-    <footer className="footer">
-      <div className="container footer__inner">
+    <Layout.Footer>
+      <Flex justify="space-between" align="center" wrap gap={12} style={{ maxWidth: 1180, margin: "0 auto", color: "#cdd9e6" }}>
         <span>© {new Date().getFullYear()} TechFix. Todos os direitos reservados.</span>
-        <div className="footer__links">
-          <a href="#servicos">Serviços</a>
-          <a href="#marcas">Marcas</a>
-          <a href="#contacto">Contacto</a>
-        </div>
-      </div>
-    </footer>
+        <Flex gap={20}>
+          <a href="#servicos" style={{ color: "#cdd9e6" }}>Serviços</a>
+          <a href="#marcas" style={{ color: "#cdd9e6" }}>Marcas</a>
+          <a href="#contacto" style={{ color: "#cdd9e6" }}>Contacto</a>
+        </Flex>
+      </Flex>
+    </Layout.Footer>
   );
 }

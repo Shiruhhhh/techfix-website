@@ -1,81 +1,64 @@
 import { useState } from "react";
+import { Typography, Row, Col, Form, Input, Button, message } from "antd";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
+const { Title, Paragraph } = Typography;
+const API_URL = import.meta.env.VITE_API_URL || "";
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [status, setStatus] = useState(null);
+  const [form] = Form.useForm();
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setStatus("sending");
+  const onFinish = async (values) => {
+    setSubmitting(true);
     try {
       const res = await fetch(`${API_URL}/api/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify(values),
       });
       if (!res.ok) throw new Error();
-      setStatus("success");
-      setForm({ name: "", email: "", message: "" });
+      message.success("Pedido enviado com sucesso!");
+      form.resetFields();
     } catch {
-      setStatus("error");
+      message.error("Erro ao enviar. Tente novamente.");
+    } finally {
+      setSubmitting(false);
     }
   };
 
   return (
-    <section id="contacto" className="contact">
-      <div className="container contact__inner">
-        <div className="contact__info">
-          <h2>Contacte-nos</h2>
-          <p>
+    <div id="contacto" style={{ padding: "80px 24px", background: "#f5f7fa" }}>
+      <Row gutter={[48, 32]} style={{ maxWidth: 1180, margin: "0 auto" }}>
+        <Col xs={24} md={11}>
+          <Title level={2}>Contacte-nos</Title>
+          <Paragraph>
             Envie-nos os detalhes do seu dispositivo e entramos em contacto
             para marcar a reparação.
-          </p>
-          <ul>
-            <li>📍 Rua Exemplo, 123, Lisboa</li>
-            <li>📞 +351 900 000 000</li>
-            <li>✉️ geral@techfix.pt</li>
-            <li>🕒 Seg-Sáb: 9h-19h</li>
-          </ul>
-        </div>
-
-        <form className="contact__form" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            placeholder="Nome"
-            value={form.name}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={form.email}
-            onChange={handleChange}
-            required
-          />
-          <textarea
-            name="message"
-            placeholder="Descreva o problema do seu dispositivo"
-            rows={4}
-            value={form.message}
-            onChange={handleChange}
-            required
-          />
-          <button type="submit" className="btn btn--primary" disabled={status === "sending"}>
-            {status === "sending" ? "A enviar..." : "Enviar Pedido"}
-          </button>
-          {status === "success" && <p className="contact__feedback contact__feedback--ok">Pedido enviado com sucesso!</p>}
-          {status === "error" && <p className="contact__feedback contact__feedback--error">Erro ao enviar. Tente novamente.</p>}
-        </form>
-      </div>
-    </section>
+          </Paragraph>
+          <Paragraph><span aria-hidden="true">📍</span> Rua Exemplo, 123, Lisboa</Paragraph>
+          <Paragraph><span aria-hidden="true">📞</span> <a href="tel:+351900000000">+351 900 000 000</a></Paragraph>
+          <Paragraph><span aria-hidden="true">✉️</span> <a href="mailto:geral@techfix.pt">geral@techfix.pt</a></Paragraph>
+          <Paragraph><span aria-hidden="true">🕒</span> Seg-Sáb: 9h-19h</Paragraph>
+        </Col>
+        <Col xs={24} md={13}>
+          <Form form={form} layout="vertical" onFinish={onFinish} style={{ background: "#fff", padding: 32, borderRadius: 8 }}>
+            <Form.Item name="name" label="Nome" rules={[{ required: true, message: "Indique o seu nome" }]}>
+              <Input size="large" />
+            </Form.Item>
+            <Form.Item name="email" label="Email" rules={[{ required: true, type: "email", message: "Email válido obrigatório" }]}>
+              <Input size="large" />
+            </Form.Item>
+            <Form.Item name="message" label="Mensagem" rules={[{ required: true, message: "Descreva o problema" }]}>
+              <Input.TextArea placeholder="Descreva o problema do seu dispositivo" rows={4} />
+            </Form.Item>
+            <Form.Item>
+              <Button type="primary" htmlType="submit" size="large" loading={submitting} block>
+                Enviar Pedido
+              </Button>
+            </Form.Item>
+          </Form>
+        </Col>
+      </Row>
+    </div>
   );
 }
