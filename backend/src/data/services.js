@@ -1,0 +1,70 @@
+export const services = [
+  {
+    id: "phone-screen",
+    category: "phone",
+    title: "Reparação de Ecrã (Smartphone)",
+    description: "Substituição de ecrã partido ou com pixels mortos. Peças originais e compatíveis.",
+    priceFrom: 49,
+    eta: "30-60 min",
+  },
+  {
+    id: "phone-battery",
+    category: "phone",
+    title: "Substituição de Bateria",
+    description: "Bateria a perder carga rápido? Substituímos por uma nova com garantia.",
+    priceFrom: 35,
+    eta: "20-40 min",
+  },
+  {
+    id: "phone-water",
+    category: "phone",
+    title: "Dano por Líquidos",
+    description: "Diagnóstico e recuperação de dispositivos com dano por água ou líquidos.",
+    priceFrom: 59,
+    eta: "Diagnóstico em 24h",
+  },
+  {
+    id: "laptop-screen",
+    category: "laptop",
+    title: "Reparação de Ecrã (Laptop)",
+    description: "Substituição de painel LCD/LED para portáteis de todas as marcas.",
+    priceFrom: 89,
+    eta: "1-2 dias",
+  },
+  {
+    id: "laptop-keyboard",
+    category: "laptop",
+    title: "Substituição de Teclado",
+    description: "Teclas que não respondem ou teclado danificado? Trocamos rapidamente.",
+    priceFrom: 45,
+    eta: "Mesmo dia",
+  },
+  {
+    id: "laptop-performance",
+    category: "laptop",
+    title: "Upgrade SSD / Memória RAM",
+    description: "Acelere o seu portátil com upgrade de armazenamento e memória.",
+    priceFrom: 39,
+    eta: "30 min",
+  },
+  {
+    id: "desktop-diagnostics",
+    category: "desktop",
+    title: "Diagnóstico e Manutenção",
+    description: "Limpeza interna, diagnóstico de hardware e otimização de desempenho.",
+    priceFrom: 29,
+    eta: "Mesmo dia",
+  },
+  {
+    id: "desktop-data",
+    category: "desktop",
+    title: "Recuperação de Dados",
+    description: "Recuperação de ficheiros de discos danificados ou que não arrancam.",
+    priceFrom: 69,
+    eta: "Diagnóstico em 24h",
+  },
+];
+
+export const brands = [
+  "Apple", "Samsung", "Xiaomi", "Huawei", "Asus", "HP", "Lenovo", "Dell",
+];
