@@ -46,11 +46,9 @@ app.get("/models/:modelId", async (c) => {
 
   const { results: issues } = await c.env.DB.prepare(
     `SELECT it.id, it.name, it.icon_key AS iconKey, it.description,
-            p.price, p.eta
+            mit.price, mit.eta
      FROM model_issue_types mit
      JOIN issue_types it ON it.id = mit.issue_type_id
-     LEFT JOIN model_issue_prices p
-       ON p.issue_type_id = it.id AND p.model_id = mit.model_id
      WHERE mit.model_id = ?
      ORDER BY it.display_order`
   ).bind(modelId).all();
