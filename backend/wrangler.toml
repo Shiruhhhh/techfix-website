@@ -1,0 +1,16 @@
+name = "techfix-backend"
+main = "src/index.js"
+compatibility_date = "2026-06-20"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "techfix-db"
+database_id = "ea74b0b8-aaf9-45fb-b8fe-810ece106a8a"
+
+# Ativar quando houver fotos reais:
+# [[r2_buckets]]
+# binding = "IMAGES"
+# bucket_name = "techfix-images"
+
+[vars]
+ALLOWED_ORIGIN = "https://techfix-website.pages.dev"

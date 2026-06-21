@@ -19,7 +19,7 @@ function Stop-AllServices {
     Get-Job | Stop-Job -ErrorAction SilentlyContinue
     Get-Job | Remove-Job -Force -ErrorAction SilentlyContinue
 
-    foreach ($port in 4000, 5173) {
+    foreach ($port in 8787, 5173) {
         Get-NetTCPConnection -LocalPort $port -ErrorAction SilentlyContinue |
             Select-Object -ExpandProperty OwningProcess -Unique |
             ForEach-Object { Stop-Process -Id $_ -Force -ErrorAction SilentlyContinue }

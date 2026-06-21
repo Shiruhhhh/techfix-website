@@ -1,18 +1,21 @@
-import { Router } from "express";
-import { services, brands } from "../data/services.js";
+import { Hono } from "hono";
+import { brands } from "../data/brands.js";
 
-const router = Router();
+const app = new Hono();
 
-router.get("/", (req, res) => {
-  const { category } = req.query;
-  const filtered = category
-    ? services.filter((s) => s.category === category)
-    : services;
-  res.json(filtered);
+app.get("/", async (c) => {
+  const category = c.req.query("category");
+  const stmt = category
+    ? c.env.DB.prepare(
+        "SELECT id, category, title, description, price_from AS priceFrom, eta FROM services WHERE category = ?"
+      ).bind(category)
+    : c.env.DB.prepare(
+        "SELECT id, category, title, description, price_from AS priceFrom, eta FROM services"
+      );
+  const { results } = await stmt.all();
+  return c.json(results);
 });
 
-router.get("/brands", (req, res) => {
-  res.json(brands);
-});
+app.get("/brands", (c) => c.json(brands));
 
-export default router;
+export default app;

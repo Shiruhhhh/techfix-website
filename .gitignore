@@ -5,3 +5,6 @@ dist/
 *.log
 .claude
 /tasks/
+.wrangler/
+backend-worker/
+backend-express-old/
