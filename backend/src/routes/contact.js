@@ -30,7 +30,7 @@ app.post("/", async (c) => {
         },
         body: JSON.stringify({
           from: "TechFix <onboarding@resend.dev>",
-          to: ["suporte@aquario.pt"],
+          to: ["diogo.blanco@outlook.pt"],
           subject: `Novo contacto: ${name}`,
           text: `Nome: ${name}\nEmail: ${email}\nTelefone: ${phone}\n\n${message}`,
         }),
