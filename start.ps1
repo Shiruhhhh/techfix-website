@@ -1,4 +1,4 @@
-# Inicia backend (nodemon) e frontend (vite) em paralelo, prefixando logs por origem.
+# Inicia backend (wrangler dev) e frontend (vite) em paralelo, prefixando logs por origem.
 $root = $PSScriptRoot
 
 function Start-Logged($name, $color, $path, $cmd) {

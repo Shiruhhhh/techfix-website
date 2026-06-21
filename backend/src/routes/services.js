@@ -1,5 +1,4 @@
 import { Hono } from "hono";
-import { brands } from "../data/brands.js";
 
 const app = new Hono();
 
@@ -15,7 +14,5 @@ app.get("/", async (c) => {
   const { results } = await stmt.all();
   return c.json(results);
 });
-
-app.get("/brands", (c) => c.json(brands));
 
 export default app;

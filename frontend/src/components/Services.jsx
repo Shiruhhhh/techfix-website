@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Typography, Segmented, Row, Col, Card, Skeleton, Tag } from "antd";
 
 const { Title, Paragraph } = Typography;
@@ -65,6 +66,10 @@ export default function Services() {
               </Col>
             ))}
       </Row>
+
+      <div style={{ marginTop: 40 }}>
+        <Link to="/reparar">Ver catálogo completo por marca e modelo</Link>
+      </div>
     </div>
   );
 }

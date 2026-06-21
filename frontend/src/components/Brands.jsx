@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Typography, Flex, Tag, Skeleton } from "antd";
 
 const { Title } = Typography;
@@ -10,7 +11,7 @@ export default function Brands() {
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
-    fetch(`${API_URL}/api/services/brands`)
+    fetch(`${API_URL}/api/catalog/brands`)
       .then((res) => {
         if (!res.ok) throw new Error();
         return res.json();
@@ -29,9 +30,11 @@ export default function Brands() {
               <Skeleton.Button key={i} active size="large" shape="round" style={{ width: 100 }} />
             ))
           : brands.map((b) => (
-              <Tag key={b} color="blue" style={{ fontSize: 14, padding: "8px 18px", borderRadius: 8 }}>
-                {b}
-              </Tag>
+              <Link key={b.id} to={`/reparar/${b.id}`}>
+                <Tag color="blue" style={{ fontSize: 14, padding: "8px 18px", borderRadius: 8 }}>
+                  {b.name}
+                </Tag>
+              </Link>
             ))}
       </Flex>
     </div>
