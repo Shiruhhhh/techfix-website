@@ -4,14 +4,14 @@ const app = new Hono();
 
 app.post("/", async (c) => {
   const body = await c.req.json().catch(() => ({}));
-  const { name, email, message } = body;
-  if (!name || !email || !message) {
-    return c.json({ error: "name, email e message são obrigatórios" }, 400);
+  const { name, email, phone, message } = body;
+  if (!name || !email || !phone || !message) {
+    return c.json({ error: "name, email, phone e message são obrigatórios" }, 400);
   }
 
   await c.env.DB.prepare(
-    "INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)"
-  ).bind(name, email, message).run();
+    "INSERT INTO contacts (name, email, phone, message) VALUES (?, ?, ?, ?)"
+  ).bind(name, email, phone, message).run();
 
   if (c.env.RESEND_API_KEY) {
     c.executionCtx.waitUntil(
@@ -25,7 +25,7 @@ app.post("/", async (c) => {
           from: "TechFix <onboarding@resend.dev>",
           to: ["suporte@aquario.pt"],
           subject: `Novo contacto: ${name}`,
-          text: `Nome: ${name}\nEmail: ${email}\n\n${message}`,
+          text: `Nome: ${name}\nEmail: ${email}\nTelefone: ${phone}\n\n${message}`,
         }),
       }).then((r) => {
         if (!r.ok) console.error("Resend falhou", r.status);

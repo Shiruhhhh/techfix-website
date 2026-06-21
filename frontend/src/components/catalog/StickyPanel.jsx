@@ -1,11 +1,12 @@
 import { Affix, Card, Button, Typography } from "antd";
+import { fullModelName } from "./modelName";
 
 const { Title, Paragraph } = Typography;
 
-export default function StickyPanel({ model, selectedIssue }) {
+export default function StickyPanel({ model, selectedIssue, onContact }) {
   const content = (
     <Card style={{ textAlign: "center" }}>
-      <Title level={4}>{model.brand.name} {model.name}</Title>
+      <Title level={4}>{fullModelName(model)}</Title>
       {selectedIssue ? (
         <>
           <Paragraph>{selectedIssue.name}</Paragraph>
@@ -17,7 +18,7 @@ export default function StickyPanel({ model, selectedIssue }) {
       ) : (
         <Paragraph>Selecione uma avaria para ver o preço</Paragraph>
       )}
-      <Button type="primary" size="large" block href="#contacto">
+      <Button type="primary" size="large" block disabled={!selectedIssue} onClick={onContact}>
         Contacte-nos
       </Button>
     </Card>

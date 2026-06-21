@@ -3,6 +3,8 @@ import { useParams, Link } from "react-router-dom";
 import { Typography, Row, Col, Skeleton, Breadcrumb, Card } from "antd";
 import IssueGrid from "./IssueGrid";
 import StickyPanel from "./StickyPanel";
+import ContactModal from "./ContactModal";
+import { fullModelName } from "./modelName";
 
 const { Title } = Typography;
 const API_URL = import.meta.env.VITE_API_URL || "";
@@ -13,6 +15,7 @@ export default function ModelDetail() {
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState(false);
   const [selectedIssueId, setSelectedIssueId] = useState(null);
+  const [contactOpen, setContactOpen] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -60,7 +63,7 @@ export default function ModelDetail() {
       ) : (
         <Row gutter={[32, 32]}>
           <Col xs={24} md={16}>
-            <Title level={2}>Reparação {model.brand.name} {model.name}</Title>
+            <Title level={2}>Reparação {fullModelName(model)}</Title>
             <IssueGrid
               issues={model.issues}
               selectedIssueId={selectedIssueId}
@@ -68,9 +71,22 @@ export default function ModelDetail() {
             />
           </Col>
           <Col xs={24} md={8}>
-            <StickyPanel model={model} selectedIssue={selectedIssue} />
+            <StickyPanel
+              model={model}
+              selectedIssue={selectedIssue}
+              onContact={() => setContactOpen(true)}
+            />
           </Col>
         </Row>
+      )}
+
+      {model && selectedIssue && (
+        <ContactModal
+          open={contactOpen}
+          onClose={() => setContactOpen(false)}
+          modelName={fullModelName(model)}
+          issueName={selectedIssue.name}
+        />
       )}
     </div>
   );
