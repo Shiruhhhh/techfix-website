@@ -11,7 +11,7 @@ const allowedOrigins = ["https://techfix-website.pages.dev", "http://localhost:5
 app.use(
   "*",
   cors({
-    origin: (origin) => (allowedOrigins.includes(origin) ? origin : allowedOrigins[0]),
+    origin: (origin) => (allowedOrigins.includes(origin) ? origin : null),
   })
 );
 
