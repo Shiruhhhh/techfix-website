@@ -6,21 +6,19 @@ import App from './App.jsx'
 
 const theme = {
   token: {
-    colorPrimary: '#00b4d8',
-    colorInfo: '#00b4d8',
-    colorLink: '#00b4d8',
-    borderRadius: 8,
-    fontFamily: "system-ui, 'Segoe UI', Roboto, sans-serif",
+    colorPrimary: '#ff7a1a',
+    colorInfo: '#0b3a66',
+    colorLink: '#ff7a1a',
+    borderRadius: 11,
+    fontFamily: "'Manrope', system-ui, sans-serif",
   },
   components: {
     Layout: {
-      headerBg: '#ffffff',
+      headerBg: 'transparent',
       bodyBg: '#ffffff',
-      footerBg: '#0a2540',
+      footerBg: '#061528',
     },
-    Menu: {
-      itemSelectedColor: '#00b4d8',
-    },
+    Button: { fontWeight: 600 },
   },
 }
 
