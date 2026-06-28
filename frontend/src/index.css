@@ -44,6 +44,17 @@ a {
   text-decoration: none;
 }
 
+/* offset anchor scroll so sticky header (72px) doesn't cover section tops */
+#servicos,
+#marcas,
+#como-funciona,
+#porque-nos,
+#testemunhos,
+#faq,
+#contacto {
+  scroll-margin-top: 72px;
+}
+
 /* ---- Reveal on scroll ---- */
 .reveal {
   opacity: 0;
@@ -103,12 +114,6 @@ a {
   0%, 100% { transform: translate(0, 0) scale(1); }
   50% { transform: translate(-26px, 22px) scale(1.08); }
 }
-@keyframes scanLine {
-  0% { transform: translateY(-100%); opacity: 0; }
-  12% { opacity: 1; }
-  88% { opacity: 1; }
-  100% { transform: translateY(2200%); opacity: 0; }
-}
 @keyframes pulseDot {
   0%, 100% { transform: scale(1); opacity: 1; }
   50% { transform: scale(1.7); opacity: 0.55; }
@@ -124,9 +129,6 @@ a {
 
 .hero-orb {
   animation: orbFloat 13s ease-in-out infinite;
-}
-.hero-scan {
-  animation: scanLine 4.6s linear infinite;
 }
 .pulse-dot {
   animation: pulseDot 2.2s ease-in-out infinite;

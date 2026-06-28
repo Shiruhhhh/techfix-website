@@ -1,15 +1,18 @@
+import { Link } from "react-router-dom";
 import { Layout, Typography, Space, Divider } from "antd";
 import { ToolOutlined, PhoneOutlined, MailOutlined, EnvironmentOutlined } from "@ant-design/icons";
+import { useAnchorNav } from "./useAnchorNav";
 
 const { Text, Paragraph } = Typography;
 const display = { fontFamily: "'Space Grotesk', sans-serif" };
 
 const linkStyle = { color: "#9fb1ca", transition: "color .2s ease" };
 
-function FooterLink({ href, children }) {
+function FooterLink({ href, onClick, children }) {
   return (
     <a
       href={href}
+      onClick={onClick}
       style={linkStyle}
       onMouseEnter={(e) => (e.currentTarget.style.color = "#ff7a1a")}
       onMouseLeave={(e) => (e.currentTarget.style.color = "#9fb1ca")}
@@ -20,12 +23,14 @@ function FooterLink({ href, children }) {
 }
 
 export default function Footer() {
+  const anchorNav = useAnchorNav();
   return (
     <Layout.Footer style={{ background: "#061528", color: "#9fb1ca", padding: "64px 24px 32px" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <div className="footer-grid">
           <div>
             <Space style={{ marginBottom: 16 }}>
+              <Link to="/" style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
               <span
                 style={{
                   width: 38,
@@ -42,6 +47,7 @@ export default function Footer() {
               <Text strong style={{ ...display, color: "#fff", fontSize: 20, fontWeight: 800 }}>
                 Tech<span style={{ color: "var(--accent)" }}>Fix</span>
               </Text>
+              </Link>
             </Space>
             <Paragraph style={{ color: "#9fb1ca", maxWidth: 320 }}>
               Reparação profissional de smartphones, tablets, portáteis, computadores
@@ -54,9 +60,9 @@ export default function Footer() {
               Serviços
             </Text>
             <Space direction="vertical">
-              <FooterLink href="#servicos">Serviços</FooterLink>
-              <FooterLink href="#marcas">Marcas</FooterLink>
-              <FooterLink href="#como-funciona">Como Funciona</FooterLink>
+              <FooterLink href="#servicos" onClick={anchorNav("#servicos")}>Serviços</FooterLink>
+              <FooterLink href="#marcas" onClick={anchorNav("#marcas")}>Marcas</FooterLink>
+              <FooterLink href="#como-funciona" onClick={anchorNav("#como-funciona")}>Como Funciona</FooterLink>
             </Space>
           </div>
 
@@ -65,9 +71,9 @@ export default function Footer() {
               Empresa
             </Text>
             <Space direction="vertical">
-              <FooterLink href="#porque-nos">Porquê Nós</FooterLink>
-              <FooterLink href="#faq">FAQ</FooterLink>
-              <FooterLink href="#contacto">Contacto</FooterLink>
+              <FooterLink href="#porque-nos" onClick={anchorNav("#porque-nos")}>Porquê Nós</FooterLink>
+              <FooterLink href="#faq" onClick={anchorNav("#faq")}>FAQ</FooterLink>
+              <FooterLink href="#contacto" onClick={anchorNav("#contacto")}>Contacto</FooterLink>
             </Space>
           </div>
 

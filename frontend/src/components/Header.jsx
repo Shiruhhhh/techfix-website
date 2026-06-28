@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Layout, Button, Flex, Drawer } from "antd";
 import { MenuOutlined, ToolOutlined, PhoneOutlined } from "@ant-design/icons";
+import { useAnchorNav } from "./useAnchorNav";
 
 const links = [
   { href: "#servicos", label: "Serviços" },
@@ -11,8 +13,14 @@ const links = [
 ];
 
 function Logo() {
+  const location = useLocation();
+  const onClick = () => {
+    if (location.pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
   return (
-    <a href="#top" style={{ display: "flex", alignItems: "center", gap: 10 }}>
+    <Link to="/" onClick={onClick} style={{ display: "flex", alignItems: "center", gap: 10 }}>
       <span
         style={{
           width: 40,
@@ -38,12 +46,13 @@ function Logo() {
       >
         Tech<span style={{ color: "var(--accent)" }}>Fix</span>
       </span>
-    </a>
+    </Link>
   );
 }
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const anchorNav = useAnchorNav();
 
   return (
     <Layout.Header
@@ -71,6 +80,7 @@ export default function Header() {
             <a
               key={l.href}
               href={l.href}
+              onClick={anchorNav(l.href)}
               className="nav-underline"
               style={{ color: "#cdd9ea", fontWeight: 500, fontSize: 15 }}
             >
@@ -86,6 +96,7 @@ export default function Header() {
           <Button
             type="primary"
             href="#contacto"
+            onClick={anchorNav("#contacto")}
             className="cta-lift"
             style={{
               background: "var(--accent)",
@@ -119,7 +130,10 @@ export default function Header() {
           <a
             key={l.href}
             href={l.href}
-            onClick={() => setOpen(false)}
+            onClick={(e) => {
+              setOpen(false);
+              anchorNav(l.href)(e);
+            }}
             style={{ fontSize: 16, fontWeight: 600, color: "var(--ink)", padding: "8px 0" }}
           >
             {l.label}
@@ -129,7 +143,10 @@ export default function Header() {
           type="primary"
           href="#contacto"
           block
-          onClick={() => setOpen(false)}
+          onClick={(e) => {
+            setOpen(false);
+            anchorNav("#contacto")(e);
+          }}
           style={{
             marginTop: 12,
             background: "var(--accent)",

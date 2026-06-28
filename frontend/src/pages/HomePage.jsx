@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Hero from "../components/Hero";
 import Services from "../components/Services";
 import Brands from "../components/Brands";
@@ -9,6 +11,18 @@ import Contact from "../components/Contact";
 import Reveal from "../components/Reveal";
 
 export default function HomePage() {
+  const location = useLocation();
+
+  useEffect(() => {
+    const id = location.state?.scrollTo;
+    if (!id) return;
+    // wait a tick so sections are mounted before scrolling
+    const t = setTimeout(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    }, 60);
+    return () => clearTimeout(t);
+  }, [location.state]);
+
   return (
     <>
       <Hero />

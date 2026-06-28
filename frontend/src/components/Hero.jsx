@@ -9,7 +9,7 @@ import {
   ToolOutlined,
   CustomerServiceOutlined,
 } from "@ant-design/icons";
-import heroImg from "../assets/hero-repair.jpg";
+import heroImg from "../assets/hero-repair-2.jpg";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -239,17 +239,6 @@ export default function Hero() {
                   inset: 0,
                   background:
                     "linear-gradient(to top, rgba(7,26,49,.65), transparent 45%)",
-                }}
-              />
-              <div
-                className="hero-scan"
-                style={{
-                  position: "absolute",
-                  left: 0,
-                  right: 0,
-                  height: 3,
-                  background:
-                    "linear-gradient(90deg, transparent, rgba(255,122,26,.9), transparent)",
                 }}
               />
             </div>
