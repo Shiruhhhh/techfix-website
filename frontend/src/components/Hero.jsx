@@ -10,6 +10,7 @@ import {
   CustomerServiceOutlined,
 } from "@ant-design/icons";
 import heroImg from "../assets/hero-repair-2.jpg";
+import { useAnchorNav } from "./useAnchorNav";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -30,6 +31,7 @@ const TRUST = [
 ];
 
 export default function Hero() {
+  const anchorNav = useAnchorNav();
   return (
     <div
       id="top"
@@ -142,6 +144,7 @@ export default function Hero() {
                 type="primary"
                 size="large"
                 href="#contacto"
+                onClick={anchorNav("#contacto")}
                 className="cta-lift"
                 icon={<ArrowRightOutlined />}
                 iconPlacement="end"
@@ -161,6 +164,7 @@ export default function Hero() {
               <Button
                 size="large"
                 href="#servicos"
+                onClick={anchorNav("#servicos")}
                 style={{
                   background: "rgba(255,255,255,.07)",
                   color: "#fff",

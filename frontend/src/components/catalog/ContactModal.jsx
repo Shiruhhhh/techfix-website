@@ -11,8 +11,10 @@ export default function ContactModal({ open, onClose, modelName, issueName }) {
     if (open) {
       form.setFieldsValue({
         model: modelName,
-        issue: issueName,
-        message: `Boa tarde, gostaria de obter um orçamento para ${issueName} do ${modelName}.`,
+        issue: issueName || "Diagnóstico",
+        message: issueName
+          ? `Boa tarde, gostaria de obter um orçamento para ${issueName} do ${modelName}.`
+          : `Boa tarde, gostaria de um diagnóstico grátis para o meu ${modelName}.`,
       });
     }
   }, [open, modelName, issueName, form]);
@@ -42,7 +44,7 @@ export default function ContactModal({ open, onClose, modelName, issueName }) {
   };
 
   return (
-    <Modal title="Pedir Orçamento" open={open} onCancel={onClose} footer={null} destroyOnClose>
+    <Modal title="Pedir orçamento grátis" open={open} onCancel={onClose} footer={null} destroyOnClose>
       <Form form={form} layout="vertical" onFinish={onFinish}>
         <Form.Item name="name" label="Nome" rules={[{ required: true, message: "Indique o seu nome" }]}>
           <Input size="large" />

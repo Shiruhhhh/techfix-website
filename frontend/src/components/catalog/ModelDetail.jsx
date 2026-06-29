@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import { Typography, Row, Col, Skeleton, Breadcrumb, Card } from "antd";
+import { useParams } from "react-router-dom";
+import { Skeleton } from "antd";
+import RepairLayout from "./RepairLayout";
+import BackButton from "./BackButton";
 import IssueGrid from "./IssueGrid";
 import StickyPanel from "./StickyPanel";
 import ContactModal from "./ContactModal";
 import { fullModelName } from "./modelName";
 
-const { Title } = Typography;
 const API_URL = import.meta.env.VITE_API_URL || "";
 
 export default function ModelDetail() {
   const { brandId, familyId, modelId } = useParams();
+  const noFamily = familyId === undefined;
   const [model, setModel] = useState(null);
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState(false);
@@ -20,6 +22,7 @@ export default function ModelDetail() {
   useEffect(() => {
     setLoading(true);
     setFailed(false);
+    setSelectedIssueId(null);
     fetch(`${API_URL}/api/catalog/models/${modelId}`)
       .then((res) => {
         if (!res.ok) throw new Error();
@@ -36,58 +39,75 @@ export default function ModelDetail() {
   };
 
   const selectedIssue = model?.issues.find((i) => i.id === selectedIssueId) || null;
-  const noFamily = familyId === undefined;
+  const modelsTo = noFamily ? `/reparar/${brandId}/modelos` : `/reparar/${brandId}/${familyId}`;
+  const eyebrow = model ? model.brand.name : brandId;
+
+  const steps = [
+    { label: "Marca", num: 1, state: "done", to: "/reparar" },
+    { label: "Gama", num: 2, state: noFamily ? "todo" : "done", to: `/reparar/${brandId}` },
+    { label: "Modelo", num: 3, state: "done", to: modelsTo },
+    { label: "Reparação", num: 4, state: "current" },
+  ];
 
   return (
-    <div style={{ padding: "64px 24px", maxWidth: 1180, margin: "0 auto" }}>
-      <Breadcrumb
-        style={{ marginBottom: 24 }}
-        items={[
-          { title: <Link to="/reparar">Reparações</Link> },
-          { title: <Link to={`/reparar/${brandId}`}>{brandId}</Link> },
-          ...(noFamily ? [] : [{ title: <Link to={`/reparar/${brandId}/${familyId}`}>{familyId}</Link> }]),
-          { title: model?.name || modelId },
-        ]}
-      />
+    <RepairLayout
+      steps={steps}
+      eyebrow={eyebrow}
+      title={model ? model.name : "Reparação"}
+      sub="Preço fixo por avaria, com 90 dias de garantia."
+    >
+      <BackButton to={modelsTo} label={model ? model.name : "Modelos"} />
 
       {loading || failed ? (
-        <Row gutter={[16, 16]}>
-          {Array.from({ length: 8 }).map((_, i) => (
-            <Col xs={12} sm={8} md={6} key={i}>
-              <Card>
-                <Skeleton active paragraph={false} />
-              </Card>
-            </Col>
-          ))}
-        </Row>
+        <div className="detail-grid">
+          <div className="issue-grid">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} style={{ background: "#fff", border: "1px solid var(--line)", borderRadius: 16, padding: 18 }}>
+                <Skeleton active paragraph={{ rows: 2 }} />
+              </div>
+            ))}
+          </div>
+          <div style={{ background: "#fff", border: "1px solid var(--line)", borderRadius: 20, padding: 26 }}>
+            <Skeleton active paragraph={{ rows: 4 }} />
+          </div>
+        </div>
       ) : (
-        <Row gutter={[32, 32]}>
-          <Col xs={24} md={16}>
-            <Title level={2}>Reparação {fullModelName(model)}</Title>
-            <IssueGrid
-              issues={model.issues}
-              selectedIssueId={selectedIssueId}
-              onSelect={handleSelect}
-            />
-          </Col>
-          <Col xs={24} md={8}>
-            <StickyPanel
-              model={model}
-              selectedIssue={selectedIssue}
-              onContact={() => setContactOpen(true)}
-            />
-          </Col>
-        </Row>
+        <div className="detail-grid">
+          <div>
+            <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 24, letterSpacing: "-.02em", color: "var(--ink)", margin: "0 0 6px" }}>
+              Qual é o problema?
+            </h2>
+            <p style={{ color: "var(--muted)", fontSize: 15, margin: "0 0 22px" }}>
+              Escolha a avaria do {fullModelName(model)}. Preço fixo, sem surpresas.
+            </p>
+            <IssueGrid issues={model.issues} selectedIssueId={selectedIssueId} onSelect={handleSelect} />
+          </div>
+          <div className="detail-panel">
+            <StickyPanel model={model} selectedIssue={selectedIssue} onContact={() => setContactOpen(true)} />
+          </div>
+        </div>
       )}
 
-      {model && selectedIssue && (
+      {model && (
         <ContactModal
           open={contactOpen}
           onClose={() => setContactOpen(false)}
           modelName={fullModelName(model)}
-          issueName={selectedIssue.name}
+          issueName={selectedIssue?.name || ""}
         />
       )}
-    </div>
+
+      <style>{`
+        .detail-grid {
+          display: grid;
+          grid-template-columns: 1.55fr 1fr;
+          gap: 32px;
+          align-items: start;
+        }
+        @media (max-width: 980px) {
+          .detail-grid { grid-template-columns: 1fr; }
+        }
+      `}</style>
+    </RepairLayout>
   );
 }

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Layout, Typography, Space, Divider } from "antd";
 import { ToolOutlined, PhoneOutlined, MailOutlined, EnvironmentOutlined } from "@ant-design/icons";
 import { useAnchorNav } from "./useAnchorNav";
@@ -24,13 +24,19 @@ function FooterLink({ href, onClick, children }) {
 
 export default function Footer() {
   const anchorNav = useAnchorNav();
+  const location = useLocation();
+  const onLogoClick = () => {
+    if (location.pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
   return (
     <Layout.Footer style={{ background: "#061528", color: "#9fb1ca", padding: "64px 24px 32px" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <div className="footer-grid">
           <div>
             <Space style={{ marginBottom: 16 }}>
-              <Link to="/" style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+              <Link to="/" onClick={onLogoClick} style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
               <span
                 style={{
                   width: 38,
