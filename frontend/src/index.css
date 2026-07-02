@@ -154,3 +154,15 @@ a {
 #contacto .ant-form-item-required::before {
   display: none !important;
 }
+
+/* ---- Repair catalog: shared grid base (used by Brand/Gama/Modelo pages) ---- */
+.repair-grid {
+  display: grid;
+  gap: 18px;
+}
+.repair-card-skeleton {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 24px;
+}

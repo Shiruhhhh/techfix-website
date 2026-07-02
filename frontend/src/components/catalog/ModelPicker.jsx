@@ -56,10 +56,25 @@ export default function ModelPicker() {
   }, [brandId, familyId, noFamily]);
 
   const term = q.trim().toLowerCase();
-  const list = useMemo(
-    () => (term ? models.filter((m) => m.name.toLowerCase().includes(term)) : models),
-    [models, term]
-  );
+  const words = term ? term.split(/\s+/) : [];
+  const list = useMemo(() => {
+    if (!term) return models;
+    // Todas as palavras da pesquisa têm de aparecer no nome, em qualquer ordem
+    // (ex: "11 pro" encontra "iPad Pro 11"); prefixo da frase completa antes
+    // de match por palavras soltas, mantém ordem original como desempate.
+    return models
+      .filter((m) => {
+        const name = m.name.toLowerCase();
+        return words.every((w) => name.includes(w));
+      })
+      .sort((a, b) => {
+        const an = a.name.toLowerCase();
+        const bn = b.name.toLowerCase();
+        const ap = an.startsWith(term) ? 0 : 1;
+        const bp = bn.startsWith(term) ? 0 : 1;
+        return ap - bp;
+      });
+  }, [models, term, words]);
 
   const bLabel = brandName || brandId;
   const fLabel = noFamily ? "" : familyName || familyId;

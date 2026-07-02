@@ -27,10 +27,17 @@ export default function BrandPicker() {
   }, []);
 
   const term = q.trim().toLowerCase();
-  const list = useMemo(
-    () => (term ? brands.filter((b) => b.name.toLowerCase().includes(term)) : brands),
-    [brands, term]
-  );
+  const list = useMemo(() => {
+    if (!term) return brands;
+    // Prefixo antes de substring; mantém ordem original como desempate.
+    return brands
+      .filter((b) => b.name.toLowerCase().includes(term))
+      .sort((a, b) => {
+        const ap = a.name.toLowerCase().startsWith(term) ? 0 : 1;
+        const bp = b.name.toLowerCase().startsWith(term) ? 0 : 1;
+        return ap - bp;
+      });
+  }, [brands, term]);
 
   const steps = [
     { label: "Marca", num: 1, state: "current" },
@@ -86,10 +93,6 @@ export default function BrandPicker() {
       <Reassure />
 
       <style>{`
-        .repair-grid {
-          display: grid;
-          gap: 18px;
-        }
         .repair-grid-brand { grid-template-columns: repeat(5, 1fr); }
         .brand-tile {
           display: flex;
@@ -118,12 +121,6 @@ export default function BrandPicker() {
           display: grid;
           place-items: center;
           overflow: hidden;
-        }
-        .repair-card-skeleton {
-          background: #fff;
-          border: 1px solid var(--line);
-          border-radius: 20px;
-          padding: 24px;
         }
         @media (max-width: 980px) { .repair-grid-brand { grid-template-columns: repeat(3, 1fr); } }
         @media (max-width: 600px) { .repair-grid-brand { grid-template-columns: repeat(2, 1fr); } }

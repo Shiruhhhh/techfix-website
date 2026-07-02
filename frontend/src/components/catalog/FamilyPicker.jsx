@@ -35,13 +35,9 @@ export default function FamilyPicker() {
         return res.json();
       })
       .then((data) => {
-        // Sem famílias (ou só uma) -> salta direto para os modelos.
+        // Sem famílias -> salta direto para os modelos.
         if (data.length === 0) {
           navigate(`/reparar/${brandId}/modelos`, { replace: true });
-          return;
-        }
-        if (data.length === 1) {
-          navigate(`/reparar/${brandId}/${data[0].id}`, { replace: true });
           return;
         }
         setFamilies(data);
