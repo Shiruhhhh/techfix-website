@@ -6,13 +6,11 @@ dist/
 .claude
 /tasks/
 .wrangler/
-backend-worker/
-backend-express-old/
 
 # Obsidian
 vault/.obsidian/
 
-# Graphify — ver graphify/README.md para a razão de cada exclusão
+# Graphify — generated cache/manifest, not the tracked graph.json/GRAPH_REPORT.md/graph.html
 graphify-out/manifest.json
 graphify-out/cost.json
 graphify-out/cache/
