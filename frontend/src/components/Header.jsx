@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Layout, Button, Flex, Drawer } from "antd";
 import { MenuOutlined, ToolOutlined, PhoneOutlined } from "@ant-design/icons";
 import { useAnchorNav } from "./useAnchorNav";
+import { smoothScrollTo } from "./smoothScrollTo";
 
 const links = [
   { href: "#servicos", label: "Serviços" },
@@ -16,7 +17,7 @@ function Logo() {
   const location = useLocation();
   const onClick = () => {
     if (location.pathname === "/") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      smoothScrollTo(0);
     }
   };
   return (

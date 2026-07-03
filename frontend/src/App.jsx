@@ -2,6 +2,7 @@ import { Layout } from "antd";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 import HomePage from "./pages/HomePage";
 import BrandPicker from "./components/catalog/BrandPicker";
 import FamilyPicker from "./components/catalog/FamilyPicker";
@@ -11,6 +12,7 @@ import ModelDetail from "./components/catalog/ModelDetail";
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Layout>
         <Header />
         <Layout.Content>

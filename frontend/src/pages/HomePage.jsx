@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { smoothScrollToElement } from "../components/smoothScrollTo";
 import Hero from "../components/Hero";
 import Services from "../components/Services";
 import Brands from "../components/Brands";
@@ -18,7 +19,7 @@ export default function HomePage() {
     if (!id) return;
     // wait a tick so sections are mounted before scrolling
     const t = setTimeout(() => {
-      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+      smoothScrollToElement(document.getElementById(id));
     }, 60);
     return () => clearTimeout(t);
   }, [location.state]);

@@ -1,4 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
+import { smoothScrollToElement } from "./smoothScrollTo";
 
 // Returns a click handler that smooth-scrolls to an in-page anchor when on the
 // home route, or navigates home first (then scrolls) when on another route.
@@ -10,7 +11,7 @@ export function useAnchorNav() {
     e?.preventDefault();
     const id = hash.replace(/^#/, "");
     if (location.pathname === "/") {
-      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+      smoothScrollToElement(document.getElementById(id));
     } else {
       navigate("/", { state: { scrollTo: id } });
     }

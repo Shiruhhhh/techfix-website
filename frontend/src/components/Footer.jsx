@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Layout, Typography, Space, Divider } from "antd";
 import { ToolOutlined, PhoneOutlined, MailOutlined, EnvironmentOutlined } from "@ant-design/icons";
 import { useAnchorNav } from "./useAnchorNav";
+import { smoothScrollTo } from "./smoothScrollTo";
 
 const { Text, Paragraph } = Typography;
 const display = { fontFamily: "'Space Grotesk', sans-serif" };
@@ -27,7 +28,7 @@ export default function Footer() {
   const location = useLocation();
   const onLogoClick = () => {
     if (location.pathname === "/") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      smoothScrollTo(0);
     }
   };
   return (
