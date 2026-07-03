@@ -10,7 +10,7 @@ backend-worker/
 backend-express-old/
 
 # Obsidian
-vault/
+vault/.obsidian/
 
 # Graphify — ver graphify/README.md para a razão de cada exclusão
 graphify-out/manifest.json

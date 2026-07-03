@@ -22,6 +22,9 @@ export function smoothScrollTo(targetY, duration = 500) {
 
 export function smoothScrollToElement(el, duration = 500) {
   if (!el) return;
-  const targetY = el.getBoundingClientRect().top + window.scrollY;
+  // Manual scrollTo doesn't honor CSS scroll-margin-top the way native
+  // scrollIntoView does, so account for it explicitly here.
+  const scrollMarginTop = parseFloat(getComputedStyle(el).scrollMarginTop) || 0;
+  const targetY = el.getBoundingClientRect().top + window.scrollY - scrollMarginTop;
   smoothScrollTo(targetY, duration);
 }
