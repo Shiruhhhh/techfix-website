@@ -1,57 +1,37 @@
-# Ant Design Pro
+# TechFix — Portal Interno
 
-This project is initialized with [Ant Design Pro](https://pro.ant.design). Follow is the quick guide for how to use.
+Portal admin para gerir o catálogo (marcas, gamas, modelos, tipos de avaria,
+preços/eta) e as mensagens de contacto do site TechFix. Frontend em Ant Design
+Pro (Umi Max), fala com o Worker partilhado (`../backend`) via `/api/admin/*`.
 
-## Environment Prepare
+Sem login próprio — Cloudflare Access protege o subdomínio no edge. Ver
+`vault/03_Decisions/Portal Interno - Arquitetura.md` e
+`vault/06_Integrations/Cloudflare Access.md` no repo root.
 
-Install `node_modules`:
+## Correr localmente
+
+Precisa do backend a correr em paralelo (`cd ../backend && npm run dev`,
+porta 8787) — `backend/.dev.vars` tem `LOCAL_DEV=true`, que salta a
+validação Access em dev.
 
 ```bash
 npm install
+npm run dev
 ```
 
-or
+Abre em `http://localhost:8000`. O proxy `/api` (`config/proxy.ts`) encaminha
+para `localhost:8787`.
 
-```bash
-yarn
-```
+## Scripts
 
-## Provided Scripts
+- `npm run dev` — dev server (Umi Max, sem mock)
+- `npm run build` — build de produção (`dist/`)
+- `npm run lint` — Biome + `tsc --noEmit`
+- `npm test` — Vitest
 
-Ant Design Pro provides some useful script to help you quick start and build with web project, code style check and test.
+## Estrutura
 
-Scripts provided in `package.json`. It's safe to modify or add additional script:
-
-### Start project
-
-```bash
-npm start
-```
-
-### Build project
-
-```bash
-npm run build
-```
-
-### Check code style
-
-```bash
-npm run lint
-```
-
-You can also use script to auto fix some lint error:
-
-```bash
-npm run lint:fix
-```
-
-### Test code
-
-```bash
-npm test
-```
-
-## More
-
-You can view full document on our [official website](https://pro.ant.design). And welcome any feedback in our [github](https://github.com/ant-design/ant-design-pro).
+Cada página em `src/pages/<entidade>/` tem `index.tsx` (tabela/lista),
+`service.ts` (chamadas fetch ao backend) e, quando há CRUD com formulário,
+`<Entidade>Form.tsx`. Sem geração automática de API (OpenAPI/mock) — os
+services são escritos à mão, dado o scope pequeno (6 páginas).

@@ -42,6 +42,13 @@ Implementação completa e testada localmente:
   CRUD, sem login/i18n multi-idioma/tailwind (removidos — Access trata auth, 1 idioma
   só, sem necessidade de layout util-first). `tsc --noEmit` limpo, testes passam,
   `npm run build` gera output em `dist/`.
+- Limpeza pós-scaffold (2026-07-04): removidos ~70 pacotes npm órfãos (openAPI
+  codegen, request-record, mock server, i18n multi-idioma) e ficheiros mortos do
+  template (`CNAME`, ícones PWA/`manifest.json`/`service-worker.js` não wired,
+  componentes de demo `ArticleListContent`/`AvatarList`/`StandardFormRow`/`TagSelect`,
+  `LangDropdown`, 7 pastas de locale além de `pt-BR`, mocks de teste não usados,
+  `types/` com namespace `API` do demo antigo). `portal/CLAUDE.md`/`README.md`/
+  `doctor.config.json` atualizados para descrever o estado real do app.
 - **Bloqueado**: domínio de branding ainda não fechado (~2 semanas a partir de
   2026-07-04) — sem isso não há subdomínio para a Access Application nem para o
   Cloudflare Pages custom domain. `wrangler.toml` tem `CF_ACCESS_TEAM_DOMAIN`/

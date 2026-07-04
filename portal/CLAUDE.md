@@ -26,19 +26,20 @@ Other: `npm run openapi` (regenerate `src/services/`), `npm run simple` (**irrev
 
 **Convention files** (`src/`): `app.tsx` (runtime config + `getInitialState`), `access.ts` (permissions), `global.tsx` (side effects), `loading.tsx`, `typings.d.ts`.
 
-**Auth**: `getInitialState()` → `GET /api/currentUser`; 401 → redirect login. `access.ts`: `canAdmin = currentUser.access === 'admin'`. Mock creds: `admin`/`ant.design` or `user`/`ant.design`.
+**Auth**: none in this app. Cloudflare Access gates the whole subdomain at the
+edge — `getInitialState()` always returns an authenticated stub (no
+`/api/currentUser`, no login page). `access.ts`: `canAdmin` is always `true`
+(1 user only). See `vault/06_Integrations/Cloudflare Access.md` in the repo root.
 
-**State**: `useModel('filename')` for global hooks (`src/models/`). `useModel('@@initialState')` for currentUser/settings. ProTable `request` prop for most data loading. `@tanstack/react-query` for complex server state.
+**State**: `useModel('filename')` for global hooks (`src/models/`). `useModel('@@initialState')` for currentUser/settings. ProTable `request` prop for most data loading.
 
-**Styling priority**: Tailwind CSS v4 (layout) → antd-style v4 / `createStyles` (theme tokens) → CSS Modules → Less (legacy only).
+**Styling priority**: antd-style v4 / `createStyles` (theme tokens) → CSS Modules → Less (legacy only). No Tailwind — removed, this app has no util-first styling needs.
 
-**Request**: built-in `request` from `@umijs/max`, configured in `src/requestErrorConfig.ts`. Per-page `service.ts` for non-generated APIs.
+**Request**: built-in `request` from `@umijs/max`, configured in `src/requestErrorConfig.ts` (backend returns plain JSON + `{error}` on failure, no `{success,data}` wrapper). Per-page `service.ts` calling `backend/src/routes/admin/*` directly — no OpenAPI codegen (removed, only 6 pages).
 
-**i18n**: 8 locales in `src/locales/`. `useIntl().formatMessage({ id, defaultMessage })`.
+**i18n**: pt-BR only (`config/config.ts` `locale.default`), no language switcher — `LangDropdown` removed along with the other 7 locale bundles.
 
-**Mock**: `mock/` (global) + `src/pages/**/_mock.ts` (co-located). Express-style handlers.
-
-**Cloudflare Worker**: `cloudflare-worker/` — separate Hono app, own `package.json`, not an npm workspace.
+**Backend**: this app has no local backend — it talks to the shared TechFix Worker (`../backend`) via `/api/admin/*`, proxied to `localhost:8787` in dev (`config/proxy.ts`).
 
 ## AI Skills
 
