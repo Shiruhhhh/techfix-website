@@ -21,16 +21,20 @@ Check each of these against current repo state:
 - `backend/migrations/` — still plain numbered `.sql` files applied via
   `wrangler d1 migrations apply`? If the migration tool/convention changed,
   update the "Writing a new migration" section in `README.md` too.
-- `frontend` — still deployed via Cloudflare Pages auto-build from `main`
-  push (no manual frontend deploy command)? If Pages was replaced by a
-  manual `wrangler pages deploy` or similar, `deploy-main.ps1` needs that
-  step added explicitly.
+- `frontend` and `portal` — still deployed via Cloudflare Pages auto-build
+  from `main` push (no manual deploy command for either)? If Pages was
+  replaced by a manual `wrangler pages deploy` or similar for either app,
+  `deploy-main.ps1` needs that step added explicitly. `portal`'s Pages
+  project is only connected once the production domain is finalized (see
+  `vault/03_Decisions/Portal Interno - Arquitetura.md`) — until then it has
+  no deploy target at all, which is expected, not a bug.
 - Branch names — still `dev` and `main`? Still the same merge direction
   (`dev` → `main`)?
 - Anything else excluded from git on purpose (check `.gitignore` and
-  `tasks/`) — still just `tasks/`, `.env`, `frontend/.env`? If a new
-  secret file or generated folder was added, add it to the `:(exclude)`
-  list in `deploy-dev.ps1` and `deploy-main.ps1`.
+  `tasks/`) — still just `tasks/`, `.env`, `frontend/.env`,
+  `backend/.dev.vars`, `portal/.env`? If a new secret file or generated
+  folder was added, add it to the `:(exclude)` list in `deploy-dev.ps1` and
+  `deploy-main.ps1`.
 
 If all of the above still match what the 3 scripts do — they're up to
 date, stop here.

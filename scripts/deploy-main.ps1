@@ -1,8 +1,10 @@
 <#
 .SYNOPSIS
   Deploy dev into main: push dev, merge into main, push main, deploy backend
-  Worker to Cloudflare (Pages auto-deploys from the main push), restore dev.
-  Never touches /tasks or .env files (both already gitignored, kept untracked).
+  Worker to Cloudflare (Pages auto-deploys frontend AND portal from the main
+  push, once the portal Pages project is connected — see scripts/README.md),
+  restore dev. Never touches /tasks or .env/.dev.vars files (already
+  gitignored, kept untracked).
 #>
 param(
     [string]$Message
@@ -20,7 +22,7 @@ try {
         if (-not $?) { throw "checkout dev failed" }
     }
 
-    git add -A -- . ":(exclude)tasks" ":(exclude).env" ":(exclude)frontend/.env"
+    git add -A -- . ":(exclude)tasks" ":(exclude).env" ":(exclude)frontend/.env" ":(exclude)backend/.dev.vars" ":(exclude)portal/.env"
 
     $status = git status --porcelain
     if ($status) {
@@ -44,7 +46,7 @@ try {
     git push origin main
     if (-not $?) { throw "push main failed" }
 
-    Write-Host "main updated from dev. Pages will auto-deploy frontend." -ForegroundColor Green
+    Write-Host "main updated from dev. Pages will auto-deploy frontend (and portal, once connected)." -ForegroundColor Green
 
     & (Join-Path $PSScriptRoot "migrate-db.ps1")
     if (-not $?) { throw "migration failed" }

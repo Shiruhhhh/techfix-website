@@ -18,7 +18,7 @@ try {
         if (-not $?) { throw "checkout dev failed" }
     }
 
-    git add -A -- . ":(exclude)tasks" ":(exclude).env" ":(exclude)frontend/.env"
+    git add -A -- . ":(exclude)tasks" ":(exclude).env" ":(exclude)frontend/.env" ":(exclude)backend/.dev.vars" ":(exclude)portal/.env"
 
     $status = git status --porcelain
     if ($status) {

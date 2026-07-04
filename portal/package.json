@@ -1,0 +1,68 @@
+{
+  "name": "ant-design-pro",
+  "version": "6.0.2",
+  "private": true,
+  "description": "An out-of-box UI solution for enterprise applications",
+  "repository": "git@github.com:ant-design/ant-design-pro.git",
+  "scripts": {
+    "biome": "biome check --write",
+    "biome:lint": "biome lint",
+    "build": "max build",
+    "dev": "cross-env UMI_ENV=dev MOCK=none max dev",
+    "lint": "npm run biome:lint && npm run tsc",
+    "openapi": "max openapi",
+    "preview": "max preview --port 8000",
+    "preview:build": "max build && max preview --port 8000",
+    "start": "cross-env UMI_ENV=dev max dev",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "tsc": "tsc --noEmit"
+  },
+  "browserslist": [
+    "defaults"
+  ],
+  "dependencies": {
+    "@ant-design/icons": "^6.3.1",
+    "@ant-design/pro-components": "^3.1.12-0",
+    "antd": "^6.5.0",
+    "antd-style": "^4.1.0",
+    "clsx": "^2.1.1",
+    "dayjs": "^1.11.20",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
+  },
+  "devDependencies": {
+    "@ant-design/cli": "^6.5.0",
+    "@biomejs/biome": "^2.5.0",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.1.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@umijs/lint": "^4.6.51",
+    "@umijs/max": "^4.6.67",
+    "@umijs/max-plugin-openapi": "^2.0.3",
+    "@umijs/request-record": "^1.1.4",
+    "@vitest/coverage-v8": "4.1.8",
+    "@vitest/ui": "4.1.8",
+    "cross-env": "^10.1.0",
+    "express": "^5.2.1",
+    "happy-dom": "^20.10.1",
+    "jsdom": "^29.1.1",
+    "mockjs": "^1.1.0",
+    "swagger-ui-dist": "^5.32.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3",
+    "vitest": "4.1.8"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "overrides": {
+    "@umijs/plugins": {
+      "@ant-design/pro-components": "$@ant-design/pro-components"
+    }
+  }
+}

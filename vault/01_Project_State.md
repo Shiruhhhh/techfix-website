@@ -24,16 +24,24 @@ Frontend: React + Vite + Ant Design. Backend: Cloudflare Workers (Hono) + D1.
 - GET `/api/services` (filtro `?category=phone|laptop|desktop`)
 - GET `/api/services/brands`
 - POST `/api/contact`
+- GET `/api/catalog/brands`, `/api/catalog/brands/:brandId/families`,
+  `/api/catalog/brands/:brandId/models`, `/api/catalog/models/:modelId`
+- `/api/admin/*` (protegido por Cloudflare Access — ver [[Portal Interno - Arquitetura]]):
+  CRUD `brands`, `model-families`, `models`, `issue-types`, `model-issue-types`
+  (+ upsert em lote `PATCH /model-issue-types/model/:modelId`), e gestão de
+  `contacts` (`GET`, `PATCH :id/read`, `PATCH :id/archive`, `PATCH :id/unarchive`).
 
 ## Prioridade atual
-_(a preencher — o que está a ser trabalhado agora)_
+Portal interno (`portal.<dominio>`) — código completo e testado localmente
+(backend `/api/admin/*` + frontend `portal/` com Ant Design Pro). Falta apenas:
+domínio de branding fechar (~2 semanas a partir de 2026-07-04), depois configurar
+Cloudflare Pages/Access/DNS e fazer o primeiro deploy real (ver
+[[Portal Interno - Arquitetura]] e [[Cloudflare Access]]).
 
 ## Roadmap conhecido (não implementado ainda)
-- Portal interno para gestão de dados.
 - Sistema de encomendas.
 - Geração de faturas.
 - Sistema de emails (para além do contacto atual via Resend).
-- Autenticação/autorização (ainda por decidir) — necessária para o portal interno.
 
 ## Non-goals
 - Não guardar histórico de conversas no vault.
@@ -50,3 +58,5 @@ _(a preencher — o que está a ser trabalhado agora)_
 ## Related
 - [[Cloudflare Workers + D1]]
 - [[CORS Configuration]]
+- [[Portal Interno - Arquitetura]]
+- [[Cloudflare Access]]

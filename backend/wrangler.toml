@@ -14,3 +14,7 @@ database_id = "ea74b0b8-aaf9-45fb-b8fe-810ece106a8a"
 
 [vars]
 ALLOWED_ORIGIN = "https://techfix-website.pages.dev"
+# Preencher com valores reais depois de criar a Access Application no dashboard
+# (Zero Trust > Access > Applications). Ver vault/06_Integrations/Cloudflare Access.md.
+CF_ACCESS_TEAM_DOMAIN = "https://REPLACE-ME.cloudflareaccess.com"
+CF_ACCESS_AUD = "REPLACE-ME"

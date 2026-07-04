@@ -16,9 +16,10 @@ powershell -File "tasks/scripts/deploy-dev.ps1"
 or `cd tasks/scripts` first and use `./deploy-dev.ps1`. Both forms work.
 
 `deploy-dev.ps1` and `deploy-main.ps1` exclude `tasks/`, `.env`,
-`frontend/.env` from `git add`, so secrets and this scripts folder are
-never staged or committed by them. (They're also already in
-`.gitignore` — the exclude is belt-and-suspenders.)
+`frontend/.env`, `backend/.dev.vars`, `portal/.env` from `git add`, so
+secrets and this scripts folder are never staged or committed by them.
+(They're also already in `.gitignore` — the exclude is
+belt-and-suspenders.)
 
 ## `deploy-dev.ps1`
 
@@ -45,6 +46,11 @@ Full production deploy: dev → main → Cloudflare.
 - Checks out `main`, merges `dev` (`--no-edit`), pushes `origin main`.
   - Cloudflare Pages auto-deploys the frontend from this push — no manual
     step needed for the frontend.
+  - Once the `portal` Cloudflare Pages project is connected (root directory
+    `portal/`, see `vault/03_Decisions/Portal Interno - Arquitetura.md` —
+    blocked on the production domain being finalized as of 2026-07-04), the
+    same push also triggers its auto-deploy. No script change needed either
+    way — Pages watches the repo/branch, not this script.
 - Calls `migrate-db.ps1` (applies D1 migrations local, then remote — see
   below). If a migration fails, `main` is already pushed but the Worker is
   NOT redeployed — fix the migration, then re-run `migrate-db.ps1` and
@@ -103,6 +109,17 @@ run them:
   migrations must be split into multiple `INSERT` statements (~500 rows
   each worked) rather than one giant statement.
 - Always test with `-LocalOnly` before running remote.
+
+## Local dev (`start.ps1`, repo root)
+
+Runs backend (`wrangler dev`, :8787), frontend (`vite`, :5173) and portal
+(`umi dev`, :8000) in parallel as background jobs, prefixing each line of
+output with `[Backend]`/`[Frontend]`/`[Portal]`. Ctrl+C stops all three and
+frees the ports. The portal's dev proxy forwards `/api` to `localhost:8787`
+(`portal/config/proxy.ts`) — no Cloudflare Access locally, since
+`backend/.dev.vars` sets `LOCAL_DEV=true` and the auth middleware bypasses
+JWT validation when that flag is present (see
+`vault/06_Integrations/Cloudflare Access.md`).
 
 ## `backup/`
 
