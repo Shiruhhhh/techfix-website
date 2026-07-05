@@ -39,9 +39,10 @@ Frontend: React + Vite + Ant Design. Backend: Cloudflare Workers (Hono) + D1.
 ## Prioridade atual
 Portal interno (`portal.<dominio>`) — código completo e testado localmente
 (backend `/api/admin/*` + frontend `portal/` com Ant Design Pro). Falta apenas:
-domínio de branding fechar (~2 semanas a partir de 2026-07-04), depois configurar
-Cloudflare Pages/Access/DNS e fazer o primeiro deploy real (ver
-[[Portal Interno - Arquitetura]] e [[Cloudflare Access]]).
+domínio de branding fechar (~2 semanas a partir de 2026-07-04), depois seguir a
+[[Dominio Go-Live Checklist]] (zona/TLS, hostnames, Access, CORS/CSP, HSTS, Resend)
+e fazer o primeiro deploy real (ver [[Portal Interno - Arquitetura]] e
+[[Cloudflare Access]]).
 
 ## Roadmap conhecido (não implementado ainda)
 - Sistema de encomendas.
