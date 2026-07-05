@@ -65,8 +65,10 @@ TLS primeiro, HSTS só no fim da configuração de rede.
 
 - [ ] Verificar domínio no Resend; trocar `from` de `onboarding@resend.dev` para
       endereço do domínio (`backend/src/routes/contact.js`).
-- [ ] `wrangler secret put CONTACT_EMAIL_TO` em produção — **já pendente hoje**
-      (sem ele o email de notificação não é enviado; mensagens ficam na BD).
+- [x] `wrangler secret put CONTACT_EMAIL_TO` em produção — feito 2026-07-05
+      (bug real: causou perda silenciosa de emails de contacto, mensagens
+      ficaram na BD sem notificação. Corrigido, secret confirmado via
+      `wrangler secret list`).
 
 ## 7. Fecho
 
