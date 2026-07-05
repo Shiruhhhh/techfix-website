@@ -185,6 +185,7 @@ export default function Brands() {
         }
         @media (max-width: 600px) {
           .brands-grid { grid-template-columns: 1fr; }
+          .brand-card:not(.brand-card-all):nth-of-type(n+5) { display: none; }
         }
       `}</style>
     </div>

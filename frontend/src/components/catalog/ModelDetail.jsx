@@ -112,7 +112,7 @@ export default function ModelDetail() {
         }
         @media (max-width: 980px) {
           .detail-grid { grid-template-columns: 1fr; }
-          .detail-panel { scroll-margin-top: 72px; }
+          .detail-panel { scroll-margin-top: 96px; }
         }
       `}</style>
     </RepairLayout>
