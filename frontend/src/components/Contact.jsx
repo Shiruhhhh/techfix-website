@@ -178,7 +178,7 @@ export default function Contact() {
                         </Form.Item>
                       </Col>
                       <Col xs={24} sm={12}>
-                        <Form.Item name="phone" label="Telemóvel">
+                        <Form.Item name="phone" label="Telemóvel" rules={[{ required: true, message: "Indique o seu telemóvel" }]}>
                           <Input placeholder="9XX XXX XXX" style={inputStyle} />
                         </Form.Item>
                       </Col>

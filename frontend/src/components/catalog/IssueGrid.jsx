@@ -14,10 +14,10 @@ export default function IssueGrid({ issues, selectedIssueId, onSelect }) {
       <style>{`
         .issue-grid {
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: repeat(2, minmax(0, 1fr));
           gap: 14px;
         }
-        @media (max-width: 600px) { .issue-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 600px) { .issue-grid { gap: 10px; } }
       `}</style>
     </div>
   );

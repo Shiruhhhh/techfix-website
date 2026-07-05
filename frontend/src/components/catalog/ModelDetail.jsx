@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Skeleton } from "antd";
 import RepairLayout from "./RepairLayout";
@@ -7,6 +7,7 @@ import IssueGrid from "./IssueGrid";
 import StickyPanel from "./StickyPanel";
 import ContactModal from "./ContactModal";
 import { fullModelName } from "./modelName";
+import { smoothScrollToElement } from "../smoothScrollTo";
 
 const API_URL = import.meta.env.VITE_API_URL || "";
 
@@ -18,6 +19,7 @@ export default function ModelDetail() {
   const [failed, setFailed] = useState(false);
   const [selectedIssueId, setSelectedIssueId] = useState(null);
   const [contactOpen, setContactOpen] = useState(false);
+  const detailPanelRef = useRef(null);
 
   useEffect(() => {
     setLoading(true);
@@ -36,6 +38,10 @@ export default function ModelDetail() {
   const handleSelect = (issueId) => {
     setSelectedIssueId(issueId);
     window.history.replaceState(null, "", `#${issueId}`);
+    // Painel só fica fora de vista em ecrãs estreitos (grid colapsa para 1 coluna).
+    if (window.matchMedia("(max-width: 980px)").matches) {
+      smoothScrollToElement(detailPanelRef.current);
+    }
   };
 
   const selectedIssue = model?.issues.find((i) => i.id === selectedIssueId) || null;
@@ -82,7 +88,7 @@ export default function ModelDetail() {
             </p>
             <IssueGrid issues={model.issues} selectedIssueId={selectedIssueId} onSelect={handleSelect} />
           </div>
-          <div className="detail-panel">
+          <div className="detail-panel" ref={detailPanelRef}>
             <StickyPanel model={model} selectedIssue={selectedIssue} onContact={() => setContactOpen(true)} />
           </div>
         </div>
@@ -106,6 +112,7 @@ export default function ModelDetail() {
         }
         @media (max-width: 980px) {
           .detail-grid { grid-template-columns: 1fr; }
+          .detail-panel { scroll-margin-top: 72px; }
         }
       `}</style>
     </RepairLayout>

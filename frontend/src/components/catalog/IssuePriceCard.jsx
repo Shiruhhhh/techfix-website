@@ -67,6 +67,10 @@ export default function IssuePriceCard({ issue, selected, onSelect }) {
           box-shadow: 0 18px 38px -22px rgba(255,122,26,.6);
         }
         .issue-card-on:hover { border-color: var(--accent); }
+        @media (max-width: 600px) {
+          .issue-card { padding: 14px; }
+          .issue-card-icon { width: 36px; height: 36px; border-radius: 10px; }
+        }
         .issue-card-icon {
           width: 44px;
           height: 44px;
