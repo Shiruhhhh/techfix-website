@@ -12,6 +12,14 @@ database_id = "ea74b0b8-aaf9-45fb-b8fe-810ece106a8a"
 # binding = "IMAGES"
 # bucket_name = "techfix-images"
 
+# Rate limit do formulário de contacto: 5 pedidos/60s por IP.
+# API de Rate Limiting dos Workers (ainda exposta via unsafe.bindings).
+[[unsafe.bindings]]
+name = "CONTACT_RATE_LIMITER"
+type = "ratelimit"
+namespace_id = "1001"
+simple = { limit = 5, period = 60 }
+
 [vars]
 ALLOWED_ORIGIN = "https://techfix-website.pages.dev"
 # Preencher com valores reais depois de criar a Access Application no dashboard

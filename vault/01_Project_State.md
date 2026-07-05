@@ -1,7 +1,7 @@
 ---
 type: project-state
 status: current
-updated: 2026-07-03
+updated: 2026-07-05
 tags:
   - current
   - project-state
@@ -16,8 +16,13 @@ Frontend: React + Vite + Ant Design. Backend: Cloudflare Workers (Hono) + D1.
 ## Arquitetura atual
 - Frontend em Cloudflare Pages.
 - Backend como Cloudflare Worker, base de dados D1 (SQLite via Cloudflare).
-- Email de contacto via Resend (opcional — sem `RESEND_API_KEY` só grava em D1).
+- Email de contacto via Resend (opcional — sem `RESEND_API_KEY`/`CONTACT_EMAIL_TO` só
+  grava em D1). Rate limit 5/60s por IP + sanitização de input — ver [[Resend Email]].
+- Headers de segurança do frontend (CSP, X-Frame-Options, etc.) em
+  `frontend/public/_headers` (Cloudflare Pages) desde 2026-07-05.
 - CORS restrito ao domínio de produção do Pages + `localhost:5173`.
+- Cache em memória (TTL 60s) nas rotas públicas de leitura (`/api/catalog/*`,
+  `/api/services`) + `Cache-Control` para browser/edge — ver [[Cache do Catalogo]].
 
 ## Rotas existentes
 - GET `/api/health`

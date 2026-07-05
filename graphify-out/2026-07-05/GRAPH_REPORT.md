@@ -1,11 +1,11 @@
 # Graph Report - Projects  (2026-07-05)
 
 ## Corpus Check
-- 273 files · ~129,008 words
+- 270 files · ~128,148 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1181 nodes · 1498 edges · 184 communities (74 shown, 110 thin omitted)
+- 1164 nodes · 1477 edges · 193 communities (83 shown, 110 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 12 edges (avg confidence: 0.66)
 - Token cost: 0 input · 0 output
 
@@ -47,8 +47,11 @@
 - [[_COMMUNITY_Portal npm Scripts|Portal npm Scripts]]
 - [[_COMMUNITY_TechFix Project Overview & Roadmap|TechFix Project Overview & Roadmap]]
 - [[_COMMUNITY_Deploy Scripts & Docs|Deploy Scripts & Docs]]
+- [[_COMMUNITY_Umi Access Plugin (b)|Umi Access Plugin (b)]]
 - [[_COMMUNITY_Portal Meta-docs (CLAUDE.md, AGENTS.md, skills)|Portal Meta-docs (CLAUDE.md, AGENTS.md, skills)]]
 - [[_COMMUNITY_Portal Frontend Dependencies (antdpro-components)|Portal Frontend Dependencies (antd/pro-components)]]
+- [[_COMMUNITY_Umi Test Browser Runtime (a)|Umi Test Browser Runtime (a)]]
+- [[_COMMUNITY_Umi Access Plugin (c)|Umi Access Plugin (c)]]
 - [[_COMMUNITY_Portal Interno Architecture Decision|Portal Interno Architecture Decision]]
 - [[_COMMUNITY_Contacts Admin Service (portal)|Contacts Admin Service (portal)]]
 - [[_COMMUNITY_Umi Plugin Manager (b)|Umi Plugin Manager (b)]]
@@ -59,9 +62,11 @@
 - [[_COMMUNITY_Contacts & Issue Types Admin Migrations|Contacts & Issue Types Admin Migrations]]
 - [[_COMMUNITY_Landing Contact Section|Landing Contact Section]]
 - [[_COMMUNITY_Umi History Utils (a)|Umi History Utils (a)]]
+- [[_COMMUNITY_Umi History Utils (b)|Umi History Utils (b)]]
 - [[_COMMUNITY_Cloudflare Access Auth Flow|Cloudflare Access Auth Flow]]
 - [[_COMMUNITY_Community 49|Community 49]]
 - [[_COMMUNITY_Community 50|Community 50]]
+- [[_COMMUNITY_Community 51|Community 51]]
 - [[_COMMUNITY_Community 52|Community 52]]
 - [[_COMMUNITY_Community 54|Community 54]]
 - [[_COMMUNITY_Community 55|Community 55]]
@@ -76,6 +81,7 @@
 - [[_COMMUNITY_Community 65|Community 65]]
 - [[_COMMUNITY_Community 66|Community 66]]
 - [[_COMMUNITY_Community 69|Community 69]]
+- [[_COMMUNITY_Community 70|Community 70]]
 - [[_COMMUNITY_Community 71|Community 71]]
 - [[_COMMUNITY_Community 72|Community 72]]
 - [[_COMMUNITY_Community 73|Community 73]]
@@ -86,6 +92,8 @@
 - [[_COMMUNITY_Community 80|Community 80]]
 - [[_COMMUNITY_Community 81|Community 81]]
 - [[_COMMUNITY_Community 90|Community 90]]
+- [[_COMMUNITY_types.d.ts|types.d.ts]]
+- [[_COMMUNITY_types.d.ts|types.d.ts]]
 - [[_COMMUNITY_CORS restrito por domínio|CORS restrito por domínio]]
 - [[_COMMUNITY_TechFix — Portal Interno|TechFix — Portal Interno]]
 - [[_COMMUNITY_Contacts e Issue Types — campos novos para o portal admin|Contacts e Issue Types — campos novos para o portal admin]]
@@ -198,10 +206,10 @@
   frontend/src/assets/hero-repair-2.jpg → README.md
 - `Hero Image: Technician Repairing Phone Motherboard` --conceptually_related_to--> `TechFix Project`  [INFERRED]
   frontend/src/assets/hero-repair.jpg → README.md
+- `layout()` --indirect_call--> `ErrorBoundary`  [INFERRED]
+  portal/src/app.tsx → portal/src/components/ErrorBoundary/index.tsx
 - `i18nProvider()` --indirect_call--> `_LocaleContainer()`  [INFERRED]
   portal/src/.umi-production/plugin-locale/runtime.tsx → portal/src/.umi-production/plugin-locale/locale.tsx
-- `i18nProvider()` --indirect_call--> `_LocaleContainer()`  [INFERRED]
-  portal/src/.umi/plugin-locale/runtime.tsx → portal/src/.umi/plugin-locale/locale.tsx
 
 ## Import Cycles
 - 1-file cycle: `portal/src/.umi/umi.ts -> portal/src/.umi/umi.ts`
@@ -214,15 +222,15 @@
 - **TechFix Deployment Flow (Frontend Pages + Backend Worker + D1 + CORS)** — readme_cloudflare_pages_deploy, readme_cloudflare_worker_deploy, readme_d1_techfix_db, readme_cors_config [INFERRED 0.85]
 - **TechFix Visual Brand Assets (favicon + hero images)** — frontend_public_favicon_svg, frontend_src_assets_hero_repair_2_jpg, frontend_src_assets_hero_repair_jpg, frontend_index_html [INFERRED 0.75]
 
-## Communities (184 total, 110 thin omitted)
+## Communities (193 total, 110 thin omitted)
 
 ### Community 0 - "Portal Admin API Client (services)"
 Cohesion: 0.08
 Nodes (32): Brand, createBrand(), deleteBrand(), listBrands(), restoreBrand(), updateBrand(), createIssueType(), deleteIssueType() (+24 more)
 
 ### Community 1 - "Umi Layout Error Handling"
-Cohesion: 0.06
-Nodes (26): Settings, getInitialState(), layout(), request, ErrorBoundary, ErrorBoundaryState, getSubTitleId(), isChunkLoadError() (+18 more)
+Cohesion: 0.07
+Nodes (26): Settings, getInitialState(), layout(), request, Footer(), REPO_URL, useStyles, HeaderDropdown() (+18 more)
 
 ### Community 2 - "Umi Plugin/Antd Runtime Config"
 Cohesion: 0.12
@@ -233,8 +241,8 @@ Cohesion: 0.28
 Nodes (7): BackButton(), BrandPicker(), items, Reassure(), display, RepairLayout(), SearchInput()
 
 ### Community 4 - "Umi Locale Runtime (a)"
-Cohesion: 0.07
-Nodes (27): getPluginManager(), AccessProps, useAccess(), useAccessMarkedRoutes(), getRightRenderContent(), _LocaleContainer(), _onCreate(), addLocale() (+19 more)
+Cohesion: 0.08
+Nodes (27): getPluginManager(), AntdConfigContext, AntdConfigContextSetter, getAntdConfig(), innerProvider(), getRightRenderContent(), _LocaleContainer(), _onCreate() (+19 more)
 
 ### Community 5 - "Umi Locale Runtime (b)"
 Cohesion: 0.11
@@ -249,16 +257,16 @@ Cohesion: 0.06
 Nodes (33): AllIds, AllRoute, AllRouteWithoutLayout, Childrens, ExcludeEmptyKey, GetAllRouteWithoutLayout, GetChildrens, GetChildrensByParentId (+25 more)
 
 ### Community 8 - "Umi Route Table Types (b)"
-Cohesion: 0.05
-Nodes (45): createHistory(), patchTo(), stripLastSlash(), AllIds, AllRoute, AllRouteWithoutLayout, Childrens, ExcludeEmptyKey (+37 more)
+Cohesion: 0.06
+Nodes (33): AllIds, AllRoute, AllRouteWithoutLayout, Childrens, ExcludeEmptyKey, GetAllRouteWithoutLayout, GetChildrens, GetChildrensByParentId (+25 more)
 
 ### Community 9 - "Umi Initial State Config"
-Cohesion: 0.07
-Nodes (20): AntdConfigContext, AntdConfigContextSetter, getAntdConfig(), innerProvider(), IRuntimeConfig, AntdConfig, Prettify, RuntimeAntdConfig (+12 more)
+Cohesion: 0.09
+Nodes (20): IConfigFromPlugins, IConfigTypes, PrettifyWithCloseable, UtoopackConfigOverride, IConfigFromPluginsJoi, IRuntimeConfig, InitDataType, RunTimeLayoutConfig (+12 more)
 
 ### Community 10 - "Umi Footer/Model Runtime"
-Cohesion: 0.06
-Nodes (25): IConfigFromPlugins, IConfigTypes, PrettifyWithCloseable, UtoopackConfigOverride, IConfigFromPluginsJoi, InitialStateType, initState, IRuntimeConfig (+17 more)
+Cohesion: 0.11
+Nodes (12): Context, Dispatcher, ExecutorProps, GetModelByNamespace, GetNamespaces, Model, Models, Namespaces (+4 more)
 
 ### Community 11 - "Frontend HTML Entry & Brand Assets"
 Cohesion: 0.28
@@ -277,8 +285,8 @@ Cohesion: 0.17
 Nodes (13): display, Footer(), linkStyle, Header(), links, Logo(), display, Hero() (+5 more)
 
 ### Community 15 - "Backend Admin Routes Core (access, db helpers)"
-Cohesion: 0.11
-Nodes (20): allowedOrigins, app, memoryCache(), store, isUniqueConstraintError(), restore(), softDelete(), cloudflareAccess() (+12 more)
+Cohesion: 0.12
+Nodes (18): allowedOrigins, app, isUniqueConstraintError(), restore(), softDelete(), cloudflareAccess(), app, app (+10 more)
 
 ### Community 16 - "Portal tsconfig (a)"
 Cohesion: 0.10
@@ -297,20 +305,20 @@ Cohesion: 0.11
 Nodes (18): compilerOptions, declaration, esModuleInterop, experimentalDecorators, forceConsistentCasingInFileNames, jsx, moduleResolution, noImplicitReturns (+10 more)
 
 ### Community 21 - "Umi Data Flow Models"
-Cohesion: 0.06
-Nodes (25): access(), AccessContext, Provider(), AccessInstance, InitialStateProvider(), Context, Dispatcher, ExecutorProps (+17 more)
+Cohesion: 0.13
+Nodes (12): Context, Dispatcher, ExecutorProps, GetModelByNamespace, GetNamespaces, Model, Models, Namespaces (+4 more)
 
 ### Community 22 - "Umi Plugin Manager Bootstrap"
 Cohesion: 0.24
-Nodes (4): createHistory(), getRoutes(), TestBrowserProps, render()
+Nodes (8): createHistory(), createPluginManager(), __defaultExport(), getPlugins(), getValidKeys(), getRoutes(), TestBrowserProps, render()
 
 ### Community 23 - "Backend Dependencies"
 Cohesion: 0.14
 Nodes (13): dependencies, hono, jose, devDependencies, wrangler, name, private, scripts (+5 more)
 
 ### Community 24 - "Umi Access Plugin (a)"
-Cohesion: 0.50
-Nodes (3): Footer(), REPO_URL, useStyles
+Cohesion: 0.18
+Nodes (4): AccessProps, useAccess(), useAccessMarkedRoutes(), getRightRenderContent()
 
 ### Community 25 - "Portal Test Mocks"
 Cohesion: 0.14
@@ -320,6 +328,10 @@ Nodes (4): localStorageMock, MockWorker, PolyMessageChannel, store
 Cohesion: 0.22
 Nodes (8): defineApp(), IDefaultRuntimeConfig, RuntimeConfig, prettyPrint(), stringify(), stringifyObjs(), terminal, TestBrowser()
 
+### Community 27 - "Umi Data Flow Providers"
+Cohesion: 0.22
+Nodes (3): InitialStateProvider(), useModel(), InitialStateProvider()
+
 ### Community 28 - "Portal package.json Metadata"
 Cohesion: 0.17
 Nodes (11): browserslist, description, engines, node, name, overrides, @umijs/plugins, private (+3 more)
@@ -328,17 +340,29 @@ Nodes (11): browserslist, description, engines, node, name, overrides, @umijs/pl
 Cohesion: 0.17
 Nodes (12): scripts, biome, biome:lint, build, dev, lint, preview, preview:build (+4 more)
 
+### Community 32 - "Umi Access Plugin (b)"
+Cohesion: 0.27
+Nodes (5): access(), AccessContext, Provider(), AccessInstance, Provider()
+
 ### Community 34 - "Portal Frontend Dependencies (antd/pro-components)"
 Cohesion: 0.22
 Nodes (9): dependencies, @ant-design/icons, @ant-design/pro-components, antd, antd-style, clsx, dayjs, react (+1 more)
+
+### Community 35 - "Umi Test Browser Runtime (a)"
+Cohesion: 0.36
+Nodes (4): createHistory(), getRoutes(), TestBrowserProps, render()
+
+### Community 36 - "Umi Access Plugin (c)"
+Cohesion: 0.31
+Nodes (5): AccessContext, AccessProps, useAccess(), useAccessMarkedRoutes(), AccessInstance
 
 ### Community 38 - "Contacts Admin Service (portal)"
 Cohesion: 0.43
 Nodes (5): archiveContact(), Contact, listContacts(), markRead(), unarchiveContact()
 
 ### Community 39 - "Umi Plugin Manager (b)"
-Cohesion: 0.43
-Nodes (4): createPluginManager(), __defaultExport(), getPlugins(), getValidKeys()
+Cohesion: 0.36
+Nodes (5): createPluginManager(), __defaultExport(), getPlugins(), getValidKeys(), TestBrowser()
 
 ### Community 40 - "Umi Config Types"
 Cohesion: 0.33
@@ -360,6 +384,10 @@ Nodes (14): Entidades importantes, Estado atual, Tags, TechFix — Project Index
 Cohesion: 0.50
 Nodes (3): patchTo(), stripLastSlash(), UmiHistory
 
+### Community 47 - "Umi History Utils (b)"
+Cohesion: 0.50
+Nodes (3): patchTo(), stripLastSlash(), UmiHistory
+
 ### Community 49 - "Community 49"
 Cohesion: 0.19
 Nodes (7): Brands(), display, BrandLogo(), ContactModal(), ModelDetail(), fullModelName(), StickyPanel()
@@ -368,13 +396,17 @@ Nodes (7): Brands(), display, BrandLogo(), ContactModal(), ModelDetail(), fullMo
 Cohesion: 0.13
 Nodes (12): 1. Think Before Coding, 2. Simplicity First, 3. Surgical Changes, 4. Goal-Driven Execution, AI Skills, `/antd` — Ant Design CLI, Architecture Essentials, Commands (+4 more)
 
+### Community 51 - "Community 51"
+Cohesion: 0.17
+Nodes (5): ErrorBoundary, ErrorBoundaryState, getSubTitleId(), isChunkLoadError(), renderErrorFallback()
+
 ### Community 57 - "Portal Number Formatting Utils"
 Cohesion: 0.67
 Nodes (3): formatNumber(), formatYuan(), numberFormatter
 
 ### Community 58 - "Community 58"
-Cohesion: 0.10
-Nodes (19): Cache das rotas públicas de leitura (catálogo/serviços), Como funciona, Decision, Limitações aceites, Reason, Related, Rever se, Consequences importantes a considerar no crescimento futuro (+11 more)
+Cohesion: 0.14
+Nodes (12): Consequences importantes a considerar no crescimento futuro, Context, Decision, Reason, Related, Usar Cloudflare Workers + D1, Consequences, Decision (+4 more)
 
 ### Community 59 - "Community 59"
 Cohesion: 0.29
@@ -393,8 +425,8 @@ Cohesion: 0.32
 Nodes (5): App(), FamilyPicker(), ModelPicker(), ScrollToTop(), theme
 
 ### Community 65 - "Community 65"
-Cohesion: 0.14
-Nodes (12): Bypass em dev local, Cloudflare Access (auth do portal interno), Env vars (`backend/wrangler.toml`, secção `[vars]`), O que é, Passos manuais no dashboard (fora do código), Related, Validação no Worker, Como funciona (+4 more)
+Cohesion: 0.25
+Nodes (7): Bypass em dev local, Cloudflare Access (auth do portal interno), Env vars (`backend/wrangler.toml`, secção `[vars]`), O que é, Passos manuais no dashboard (fora do código), Related, Validação no Worker
 
 ### Community 72 - "Community 72"
 Cohesion: 0.29
@@ -407,6 +439,14 @@ Nodes (6): API (backend), Branches, Correr localmente, Deploy, Estrutura, TechFi
 ### Community 90 - "Community 90"
 Cohesion: 0.29
 Nodes (6): Fix, Related, Related gotcha: scroll-margin-top not honored by manual scroll, Root cause, Smooth Scroll Breaks Under Hardware Acceleration, Symptom
+
+### Community 97 - "types.d.ts"
+Cohesion: 0.40
+Nodes (4): IRuntimeConfig, AntdConfig, Prettify, RuntimeAntdConfig
+
+### Community 98 - "types.d.ts"
+Cohesion: 0.40
+Nodes (4): IRuntimeConfig, AntdConfig, Prettify, RuntimeAntdConfig
 
 ### Community 99 - "CORS restrito por domínio"
 Cohesion: 0.33
@@ -429,24 +469,24 @@ Cohesion: 0.50
 Nodes (3): 1. Verify scripts still match the codebase, 2. If anything is out of date — update procedure, Keeping the deploy scripts up to date
 
 ## Knowledge Gaps
-- **513 isolated node(s):** `name`, `private`, `type`, `dev`, `deploy` (+508 more)
+- **502 isolated node(s):** `name`, `private`, `type`, `dev`, `deploy` (+497 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **110 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
+- **Why does `layout()` connect `Umi Layout Error Handling` to `Community 51`?**
+  _High betweenness centrality (0.021) - this node is a cross-community bridge._
 - **Why does `scripts` connect `Portal npm Scripts` to `Portal package.json Metadata`?**
+  _High betweenness centrality (0.018) - this node is a cross-community bridge._
+- **Why does `ErrorBoundary` connect `Community 51` to `Umi Layout Error Handling`?**
   _High betweenness centrality (0.017) - this node is a cross-community bridge._
-- **Why does `getRoutes()` connect `Umi Plugin Manager Bootstrap` to `Umi Route Table Types (a)`?**
-  _High betweenness centrality (0.015) - this node is a cross-community bridge._
-- **Why does `devDependencies` connect `Portal Dev/Test Dependencies` to `Portal package.json Metadata`?**
-  _High betweenness centrality (0.015) - this node is a cross-community bridge._
 - **What connects `name`, `private`, `type` to the rest of the system?**
-  _533 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _522 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Portal Admin API Client (services)` be split into smaller, more focused modules?**
   _Cohesion score 0.07609427609427609 - nodes in this community are weakly interconnected._
 - **Should `Umi Layout Error Handling` be split into smaller, more focused modules?**
-  _Cohesion score 0.0573025856044724 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.0666049953746531 - nodes in this community are weakly interconnected._
 - **Should `Umi Plugin/Antd Runtime Config` be split into smaller, more focused modules?**
   _Cohesion score 0.12 - nodes in this community are weakly interconnected._

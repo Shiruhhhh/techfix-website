@@ -1,6 +1,9 @@
 import { Hono } from "hono";
+import { memoryCache } from "../lib/cache.js";
 
 const app = new Hono();
+
+app.use("*", memoryCache());
 
 app.get("/", async (c) => {
   const category = c.req.query("category");
